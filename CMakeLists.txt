@@ -10,7 +10,13 @@ set(SFML_STATIC_LIBRARIES TRUE)
 
 find_package(SFML 2.6 COMPONENTS system window graphics audio network REQUIRED)
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp
+        src/Ghost.cpp
+        src/GameObject.cpp
+        src/GameObject.h
+        src/Character.cpp
+        src/Character.h
+)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
         sfml-system
