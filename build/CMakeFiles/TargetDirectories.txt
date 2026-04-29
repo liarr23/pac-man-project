@@ -1,0 +1,3 @@
+C:/Users/liar/Desktop/pac man project/build/CMakeFiles/SFMLProject.dir
+C:/Users/liar/Desktop/pac man project/build/CMakeFiles/edit_cache.dir
+C:/Users/liar/Desktop/pac man project/build/CMakeFiles/rebuild_cache.dir

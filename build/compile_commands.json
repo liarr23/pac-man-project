@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/liar/Desktop/pac man project/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -IC:/Users/liar/Downloads/SFML-2.6.1-windows-gcc-13.1.0-mingw-64-bit/SFML-2.6.1/include -g -std=gnu++17 -o CMakeFiles\\SFMLProject.dir\\main.cpp.obj -c \"C:\\Users\\liar\\Desktop\\pac man project\\main.cpp\"",
+  "file": "C:/Users/liar/Desktop/pac man project/main.cpp",
+  "output": "C:/Users/liar/Desktop/pac man project/build/CMakeFiles/SFMLProject.dir/main.cpp.obj"
+}
+]
