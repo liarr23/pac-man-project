@@ -79,7 +79,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "3"
+			"value" : "2"
 		},
 		{
 			"name" : "CMAKE_CACHE_PATCH_VERSION",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "2"
+			"value" : "3"
 		},
 		{
 			"name" : "CMAKE_COMMAND",
@@ -103,7 +103,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/liar/AppData/Local/Programs/Python/Python314/Lib/site-packages/cmake/data/bin/cmake.exe"
+			"value" : "C:/msys64/ucrt64/bin/cmake.exe"
 		},
 		{
 			"name" : "CMAKE_CPACK_COMMAND",
@@ -115,7 +115,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/liar/AppData/Local/Programs/Python/Python314/Lib/site-packages/cmake/data/bin/cpack.exe"
+			"value" : "C:/msys64/ucrt64/bin/cpack.exe"
 		},
 		{
 			"name" : "CMAKE_CTEST_COMMAND",
@@ -127,7 +127,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/liar/AppData/Local/Programs/Python/Python314/Lib/site-packages/cmake/data/bin/ctest.exe"
+			"value" : "C:/msys64/ucrt64/bin/ctest.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER",
@@ -1143,7 +1143,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/liar/AppData/Local/Programs/Python/Python314/Lib/site-packages/cmake/data/share/cmake-4.3"
+			"value" : "C:/msys64/ucrt64/share/cmake"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
