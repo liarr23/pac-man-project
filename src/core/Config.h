@@ -5,9 +5,9 @@
 // core
 #include "InputHandler.h"
 #include "GameEngine.h"
+#include "GameObject.h"
 
 // entities
-#include "../entities/GameObject.h"
 #include "../entities/Character.h"
 #include "../entities/Ghost.h"
 #include "../entities/Blinky.h"
