@@ -5,7 +5,14 @@
 using namespace std;
 class Map {
 public:
+    int width, height;
+    map<Point,char> world;
     map<Point,bool>walkable;
     bool isWalkable(Point& p);
-    bool iswalkable(int x,int y);
+    bool isWalkable(int x,int y);
+    Map();
+    bool ReadFromFile(string &name);
+    char getWord(int x,int y);
+    char getWord(Point& p);
+
 };
