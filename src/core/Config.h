@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Types.h"
+
 // core
 #include "InputHandler.h"
 #include "GameEngine.h"

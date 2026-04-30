@@ -3,8 +3,8 @@
 #include<SFML/Graphics.hpp>
 
 #include "Character.h"
-#include "../core/GameObject.h"
-enum class State { Chase, Scatter, Frightened, Eaten };//散开，追赶，恐惧，死亡
+#include "../core/Types.h"
+
 class Ghost: public Character {
 protected:
     virtual Point chase(const Point& pacmanPos, const Point& blinkyPos) = 0;//重写寻路逻辑
