@@ -4,6 +4,7 @@
 
 #ifndef PACMAN_GAMEOBJECT_H
 #define PACMAN_GAMEOBJECT_H
+#include <SFML/Graphics.hpp>
 struct Point {
     int x;
     int y;
