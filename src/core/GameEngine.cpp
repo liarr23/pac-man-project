@@ -23,6 +23,7 @@ void GameEngine::processEvents()
         {
             window.close();
         }
+        m_inputHandler.handleEvents(event);
     }
 }
 void GameEngine::update(sf::Time deltaTime)
