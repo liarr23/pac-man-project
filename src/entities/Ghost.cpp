@@ -21,7 +21,7 @@ void Ghost::eaten() {
     isAlive = false;
 }
 
-Ghost::Ghost(int x, int y, double speed, Direction dir) {
+Ghost::Ghost(int x, int y, double speed, Direction dir,MapManager* map) {
     position.x = x;
     position.y = y;
     spawnPoint.x = x;
@@ -33,8 +33,14 @@ Ghost::Ghost(int x, int y, double speed, Direction dir) {
     isAlive = true;
     statetime = 0;
     state = State::Scatter;
+    this->map = map;
 }
-
+bool Ghost::canWalkTo(int x,int y) const{
+    return map&&map->isWalkable(x,y);
+}
+bool Ghost::canWalkTo(const Point &p) const {
+    return map&&map->isWalkable(p.x,p.y);
+}
 void Ghost::reset() {
     position = spawnPoint;
     dir = Direction::None;
@@ -54,27 +60,36 @@ Direction Ghost::opposite(Direction dir) {
 }
 
 Direction Ghost::getDirection(const Point& pacmanPos, const Point& blinkyPos) {
-    Direction opp = opposite(this->dir);
     Point current = this->position;
     Point target = chase(pacmanPos, blinkyPos);
     Direction currentDir = this->dir;
     Direction best = Direction::None;
     int bestDist = 999999;
+    Direction oppo_direction = opposite(currentDir);
     std::vector<std::pair<Direction, Point>> candidates = {
-        {Direction::Up,    {current.x, current.y - 1}},
-        {Direction::Down,  {current.x, current.y + 1}},
-        {Direction::Left,  {current.x - 1, current.y}},
-        {Direction::Right, {current.x + 1, current.y}}
-    };
-    for (const auto& cand : candidates) {
-        Direction d = cand.first;
-        Point next = cand.second;
-        if (d == opp && currentDir != Direction::None) continue;
-        int dist = std::abs(next.x - target.x) + std::abs(next.y - target.y);
-        if (dist < bestDist) {
-            bestDist = dist;
-            best = d;
+            {Direction::Up,    {current.x, current.y - 1}},
+            {Direction::Down,  {current.x, current.y + 1}},
+            {Direction::Left,  {current.x - 1, current.y}},
+            {Direction::Right, {current.x + 1, current.y}}
+        };
+
+        for (const auto& cand : candidates) {
+            Direction d = cand.first;
+            Point next = cand.second;
+            if (d == oppo_direction && currentDir != Direction::None) continue;
+            if (!canWalkTo(next)) continue;
+            int dist = std::abs(next.x - target.x) + std::abs(next.y - target.y);
+            if (dist < bestDist) {
+                bestDist = dist;
+                best = d;
+            }
         }
+        if (best == Direction::None) {
+            for (const auto& cand : candidates) {
+                if (canWalkTo(cand.second)) {
+                    return cand.first;
+                }
+            }
+        }
+        return best;
     }
-    return best;
-}
