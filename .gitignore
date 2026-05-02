@@ -1,43 +1,37 @@
-# Build output
-build/
-output/
-
-# CMake
-CMakeLists.txt
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-CMakeScripts/
-compile_commands.json
-
-# Compiled binaries
-*.exe
-*.out
-*.o
-*.obj
-*.a
-*.lib
-*.so
-*.dll
-*.dylib
-
-# SFML DLLs
-sfml-*.dll
-openal32.dll
-
-# MinGW runtime DLLs
-libgcc_s_seh-1.dll
-libstdc++-6.dll
-libwinpthread-1.dll
-
-# IDE / Editor
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS generated
-Thumbs.db
-Desktop.ini
+# Build directories
+build/
+cmake-build-*/
+CMakeDebug/
+
+# CMake generated
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Compiled output
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.out
+*.app
+
+# Debug files
+*.pdb
+*.ilk
+
+# OS
 .DS_Store
+Thumbs.db

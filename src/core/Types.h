@@ -16,11 +16,15 @@ struct Point {// 位置结构体
         return x < p.x || (x == p.x && y < p.y);
     }
 };
-
-struct Point2 {// 位置结构体
-    float x, y;
-    Point2 operator+(const Point2& other) const;
-    Point2 operator*(float scalar) const;
+struct Point2 {
+    double x, y;
+    Point2(double x = 0, double y = 0) : x(x), y(y) {}
+    bool operator==(const Point2& p) const {
+        return x == p.x && y == p.y;
+    }
+    bool operator < (const Point2& p) const {
+        return x < p.x || (x == p.x && y < p.y);
+    }
 };
 
 struct GridPos {// 砖块位置

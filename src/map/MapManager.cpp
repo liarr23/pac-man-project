@@ -8,7 +8,7 @@ MapManager::width = width;
     MapManager::height = height;
 }
 MapManager::~MapManager() = default;
-bool MapManager::LoadFromFile(string &fileName) {
+bool MapManager::LoadFromFile(const string &fileName) {
     ifstream file(fileName);
     if(!file.is_open()) {
         cerr<<"Error opening file"<<fileName<<endl;
@@ -31,7 +31,7 @@ bool MapManager::LoadFromFile(string &fileName) {
 file.close();
     return true;
 }
-bool MapManager::isWalkable(Point& p) const {
+bool MapManager::isWalkable(const Point& p) const {
 if (p.x<0||p.x>width-1||p.y<0||p.y>height-1) return false;
 char val=world.at(Point(p.x,p.y));
 if (val=='W') {
