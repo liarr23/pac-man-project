@@ -12,12 +12,12 @@ void Ghost::render(sf::RenderWindow& window) {
 }
 
 void Ghost::setFrightened() {
-    state = GhostState::Frightened;
+    state = State::Frightened;
     scarytime = 0;
 }
 
 void Ghost::eaten() {
-    state = GhostState::Eaten;
+    state = State::Eaten;
     isAlive = false;
 }
 
@@ -32,7 +32,7 @@ Ghost::Ghost(int x, int y, double speed, Direction dir,MapManager* map) {
     this->speed = speed;
     isAlive = true;
     statetime = 0;
-    state = GhostState::Scatter;
+    state = State::Scatter;
     this->map = map;
 }
 void Ghost::reset() {

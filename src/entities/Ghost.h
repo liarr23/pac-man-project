@@ -9,7 +9,7 @@
 class Ghost: public Character {
 protected:
     virtual Point chase(const Point& pacmanPos, const Point& blinkyPos) = 0;//重写寻路逻辑
-    GhostState state;
+    State state;
 public:
     Point spawnPoint;//出生点
     int scarytime;//恐惧时间长度

@@ -3,7 +3,7 @@
 
 enum class Direction { Up, Down, Left, Right, None };
 
-enum class GhostState { Chase, Scatter, Frightened, Eaten };
+enum class State { Chase, Scatter, Frightened, Eaten };
 
 struct Point {
     int x;
