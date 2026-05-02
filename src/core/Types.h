@@ -3,7 +3,7 @@
 
 enum class Direction { Up, Down, Left, Right, None };
 
-enum class State { Chase, Scatter, Frightened, Eaten };
+enum class GhostState { Chase, Scatter, Frightened, Eaten };
 
 struct Point {
     int x;
@@ -18,9 +18,14 @@ struct Point {
 };
 
 struct Point2 {
-    float x, y;
-    Point2 operator+(const Point2& other) const;
-    Point2 operator*(float scalar) const;
+    double x, y;
+    Point2(double x = 0, double y = 0) : x(x), y(y) {}
+    bool operator==(const Point2& p) const {
+        return x == p.x && y == p.y;
+    }
+    bool operator < (const Point2& p) const {
+        return x < p.x || (x == p.x && y < p.y);
+    }
 };
 
 struct GridPos {

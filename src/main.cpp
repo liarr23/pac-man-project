@@ -6,7 +6,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 800), "SFML Window", sf::Style::Resize | sf::Style::Close);
     sf::Color backgroundColor(144, 238, 144);
     sf::Texture texture; //图片对象ni
-    if (!texture.loadFromFile("""C:\\Users\\liar\\Desktop\\pac man project\\Image_1765179663459_461.jpg")) // 判断加载失败，报错
+    if (!texture.loadFromFile("../Image_1765179663459_461.jpg")) // 判断加载失败，报错
        {
      std::cerr << "false" << std::endl;
      return -1;

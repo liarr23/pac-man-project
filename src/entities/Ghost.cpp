@@ -12,18 +12,18 @@ void Ghost::render(sf::RenderWindow& window) {
 }
 
 void Ghost::setFrightened() {
-    state = State::Frightened;
+    state = GhostState::Frightened;
     scarytime = 0;
 }
 
 void Ghost::eaten() {
-    state = State::Eaten;
+    state = GhostState::Eaten;
     isAlive = false;
 }
 
 Ghost::Ghost(int x, int y, double speed, Direction dir,MapManager* map) {
-    position.x = x;
-    position.y = y;
+    m_position.x = x;
+    m_position.y = y;
     spawnPoint.x = x;
     spawnPoint.y = y;
     this->dir = dir;
@@ -32,17 +32,11 @@ Ghost::Ghost(int x, int y, double speed, Direction dir,MapManager* map) {
     this->speed = speed;
     isAlive = true;
     statetime = 0;
-    state = State::Scatter;
+    state = GhostState::Scatter;
     this->map = map;
 }
-bool Ghost::canWalkTo(int x,int y) const{
-    return map&&map->isWalkable(x,y);
-}
-bool Ghost::canWalkTo(const Point &p) const {
-    return map&&map->isWalkable(p.x,p.y);
-}
 void Ghost::reset() {
-    position = spawnPoint;
+    m_position = spawnPoint;
     dir = Direction::None;
     nextdir = Direction::None;
     scarytime = 0;
@@ -50,17 +44,8 @@ void Ghost::reset() {
     statetime = 0;
 }
 
-Direction Ghost::opposite(Direction dir) {
-    if (dir == Direction::None) return Direction::None;
-    else if (dir == Direction::Up) return Direction::Down;
-    else if (dir == Direction::Down) return Direction::Up;
-    else if (dir == Direction::Left) return Direction::Right;
-    else if (dir == Direction::Right) return Direction::Left;
-    else return Direction::None;
-}
-
 Direction Ghost::getDirection(const Point& pacmanPos, const Point& blinkyPos) {
-    Point current = this->position;
+    Point current = this->m_position;
     Point target = chase(pacmanPos, blinkyPos);
     Direction currentDir = this->dir;
     Direction best = Direction::None;
