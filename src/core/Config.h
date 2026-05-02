@@ -5,6 +5,7 @@
 // core
 #include "InputHandler.h"
 #include "GameEngine.h"
+#include "GameObject.h"
 
 // entities
 #include "../entities/Character.h"
@@ -38,3 +39,13 @@
 
 // ui
 #include "../ui/UIManager.h"
+
+namespace Config {//游戏配置常量
+    constexpr int TILE_SIZE = 32;
+    constexpr int MAP_WIDTH = 28;
+    constexpr int MAP_HEIGHT = 31;
+    constexpr float PACMAN_SPEED = 100.f;
+    constexpr float GHOST_SPEED = 80.f;
+    constexpr int INITIAL_LIVES = 3;
+    const std::string HIGHSCORE_PATH = "save/highscore.txt";
+}
