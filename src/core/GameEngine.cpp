@@ -6,18 +6,37 @@ GameEngine::GameEngine()
     m_window.setFramerateLimit(60);
 }
 
-GameEngine::~GameEngine() {}
+GameEngine::~GameEngine() {
+    for (auto* state : m_states) {
+        delete state;
+    }
+}
 
 void GameEngine::run() {
     while (m_window.isOpen()) {
         processEvents();
-        update(m_clock.restart());
+        update(m_clock.restart().asSeconds());
         render();
     }
 }
 
-void GameEngine::changeState(std::unique_ptr<GameState> newState) {
-    m_currentState = std::move(newState);
+void GameEngine::pushState(GameState* state) {
+    m_states.push_back(state);
+}
+
+void GameEngine::popState() {
+    if (!m_states.empty()) {
+        delete m_states.back();
+        m_states.pop_back();
+    }
+}
+
+void GameEngine::changeState(GameState* state) {
+    if (!m_states.empty()) {
+        delete m_states.back();
+        m_states.pop_back();
+    }
+    m_states.push_back(state);
 }
 
 void GameEngine::processEvents() {
@@ -28,22 +47,22 @@ void GameEngine::processEvents() {
             m_window.close();
         }
         m_inputHandler.handleEvents(event);
-        if (m_currentState) {
-            m_currentState->handleInput(*this, event);
+        if (!m_states.empty()) {
+            m_states.back()->handleInput(*this, event);
         }
     }
 }
 
-void GameEngine::update(sf::Time deltaTime) {
-    if (m_currentState) {
-        m_currentState->update(*this, deltaTime.asSeconds());
+void GameEngine::update(float deltaTime) {
+    if (!m_states.empty()) {
+        m_states.back()->update(*this, deltaTime);
     }
 }
 
 void GameEngine::render() {
     m_window.clear(sf::Color(144, 238, 144));
-    if (m_currentState) {
-        m_currentState->render(m_window);
+    for (auto* state : m_states) {
+        state->render(m_window);
     }
     m_window.display();
 }

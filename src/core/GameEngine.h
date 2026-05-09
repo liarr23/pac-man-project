@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <memory>
+#include <vector>
 #include "InputHandler.h"
 
 class GameState;
@@ -10,15 +10,18 @@ public:
     GameEngine();
     ~GameEngine();
     void run();
-    void changeState(std::unique_ptr<GameState> newState);
+
+    void pushState(GameState* state);
+    void popState();
+    void changeState(GameState* state);
 
 private:
     void processEvents();
-    void update(sf::Time deltaTime);
+    void update(float deltaTime);
     void render();
 
     sf::RenderWindow m_window;
     sf::Clock m_clock;
     InputHandler m_inputHandler;
-    std::unique_ptr<GameState> m_currentState;
+    std::vector<GameState*> m_states;
 };
