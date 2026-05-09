@@ -20,7 +20,9 @@ void Ghost::eaten() {
     state = State::Eaten;
     isAlive = false;
 }
-
+Point Ghost::getPosition() {
+    return m_position;
+}
 Ghost::Ghost(int x, int y, double speed, Direction dir,MapManager* map) {
     m_position.x = x;
     m_position.y = y;

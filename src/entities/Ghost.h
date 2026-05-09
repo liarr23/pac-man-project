@@ -19,8 +19,8 @@ public:
     void render(sf::RenderWindow& window) override;
     void setFrightened();
     void eaten();
-
-    Ghost (int x,int y,double speed,Direction,MapManager* map);
+    Point getPosition();
+    Ghost (int x,int y,double speed,Direction dir,MapManager* map);
     void reset();
 
     Direction getDirection(const Point& pacmanPos, const Point& blinkyPos);
