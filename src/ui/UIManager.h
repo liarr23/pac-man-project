@@ -5,6 +5,7 @@ class UIManager {
 public:
     UIManager(int score = 0, int highScore = 0, int lives = 3);
     void render(sf::RenderWindow& window);
+    ~UIManager();
 private:
     int m_score;
     int m_highScore;
