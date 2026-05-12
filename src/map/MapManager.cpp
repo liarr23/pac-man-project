@@ -79,3 +79,18 @@ int MapManager::getWidth() const {
 int MapManager::getHeight() const {
     return height;
 }
+Point MapManager::getBlinkyStartPos() {
+    return BlinkyStartPos;
+}
+
+Point MapManager::getClydeStartPos() {
+    return ClydeStartPos;
+}
+
+Point MapManager::getInkyStartPos() {
+    return InkyStartPos;
+}
+
+Point MapManager::getPinkyStartPos() {
+    return PinkyStartPos;
+}

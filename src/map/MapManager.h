@@ -11,13 +11,19 @@ public:
     int width, height;
     Point PacmanPos;
     Point GhostPos;
-    Point GhostStartPos;
+    Point ClydeStartPos;
+    Point BlinkyStartPos;
+    Point PinkyStartPos;
+    Point InkyStartPos;
     Point PacmanStartPos;
     Point GhostDoor;
     map<Point,char> world;
     map<Point,bool>walkable;
     bool isWalkable(const Point &p) const;
-
+    Point getBlinkyStartPos();
+    Point getPinkyStartPos();
+    Point getInkyStartPos();
+    Point getClydeStartPos();
     Point getPacmanStartPos() const;
     Point getGhostStartPos() const;
     bool isWalkable(int x, int y) const;

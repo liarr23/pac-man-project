@@ -1,15 +1,16 @@
 #include "Pinky.h"
 
 
-Point Pinky::chase(const Point &pacmanPos, const Point &blinkyPos) {
-    for (int i=4;i>=-4;i--) {
-        for (int j=4;j>=-4;j--) {
-            if (canWalkTo(pacmanPos.x+i,pacmanPos.y+j)) {
-                return Point(pacmanPos.x+i,pacmanPos.y+j);
-            }
-        }
+Point Pinky::chase(const Point &pacmanPos, const Point &blinkyPos,Direction pacmanDir) {
+    Point target = pacmanPos;
+    switch (pacmanDir) {
+        case Direction::Up:    target.y -= 4; break;
+        case Direction::Down:  target.y += 4; break;
+        case Direction::Left:  target.x -= 4; break;
+        case Direction::Right: target.x += 4; break;
+        default: break;
     }
-    return pacmanPos;
+    return target;
 }
 
 Point Pinky::GetPinkyPoint() const {

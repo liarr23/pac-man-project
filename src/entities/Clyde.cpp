@@ -1,5 +1,5 @@
 #include "Clyde.h"
-Point Clyde::chase(const Point &pacmanPos, const Point &blinkyPos) {
+Point Clyde::chase(const Point &pacmanPos, const Point &blinkyPos,Direction pacmanDir) {
     Point goal;
     goal = pacmanPos;
     return goal;

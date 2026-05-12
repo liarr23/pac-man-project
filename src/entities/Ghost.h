@@ -8,7 +8,7 @@
 
 class Ghost: public Character {
 protected:
-    virtual Point chase(const Point& pacmanPos, const Point& blinkyPos) = 0;//重写寻路逻辑
+    virtual Point chase(const Point& pacmanPos, const Point& blinkyPos,Direction pacmanDir) = 0;//重写寻路逻辑
     State state;
 public:
     Point spawnPoint;//出生点
