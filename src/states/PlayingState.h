@@ -1,14 +1,12 @@
 #pragma once
 #include "GameState.h"
 #include <vector>
-#include "PlayingState.h"
 #include "../map/MapManager.h"
 #include "../entities/Pacman.h"
 #include "../entities/Ghost.h"
 #include "../ui/UIManager.h"
 #include "../managers/ScoreManager.h"
 #include "../items/Item.h"
-#include "../ui/UIManager.h"
 #include "../map/Wall.h"
 
 class PlayingState : public GameState {

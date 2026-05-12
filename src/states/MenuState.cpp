@@ -1,7 +1,7 @@
 #include "MenuState.h"
 #include "../core/GameEngine.h"
 #include "PlayingState.h"
-MenuState::MenuState(int highScore): highScore(highScore)
+MenuState::MenuState(int highScore): highScore(highScore) 
 {
 } 
 void MenuState::handleInput(GameEngine& engine, sf::Event& event) 

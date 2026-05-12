@@ -1,10 +1,22 @@
-#include"PowerPellet.h"
+#include "PowerPellet.h"
+
+PowerPellet::PowerPellet(int x, int y) {
+    m_position = Point(x, y);
+    static constexpr float TILE_SIZE = 32.0f;
+    m_texture.loadFromFile("assets/textures/power_pellet.png"); // TODO: 准备好图片后取消注释或替换路径
+    m_sprite.setTexture(m_texture);
+    m_sprite.setPosition(x * TILE_SIZE, y * TILE_SIZE);
+}
+
 ItemType PowerPellet::onCollect() {
     return ItemType::PowerPellet;
 }
+
 int PowerPellet::getScore() const {
     return m_score;
 }
-PowerPellet::PowerPellet(int x, int y) {
-    m_position = Point(x, y);
+
+void PowerPellet::render(sf::RenderWindow& window) {
+    if (!m_active) return;
+    window.draw(m_sprite);
 }
