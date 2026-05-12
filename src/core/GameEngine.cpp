@@ -4,6 +4,8 @@
 GameEngine::GameEngine()
     : m_window(sf::VideoMode(800, 800), "Pacman Game", sf::Style::Resize | sf::Style::Close) {
     m_window.setFramerateLimit(60);
+    m_texture.loadFromFile("assets/textures/pacman.jpg");
+    m_sprite.setTexture(m_texture);
 }
 
 GameEngine::~GameEngine() {
@@ -60,6 +62,7 @@ void GameEngine::update(float deltaTime) {
 
 void GameEngine::render() {
     m_window.clear(sf::Color::Black);
+    m_window.draw(m_sprite);
     for (auto* state : m_states) {
         state->render(m_window);
     }

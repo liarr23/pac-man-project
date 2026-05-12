@@ -18,7 +18,8 @@ private:
     void processEvents();
     void update(float deltaTime);
     void render();
-
+    sf::Texture m_texture;
+    sf::Sprite m_sprite;
     sf::RenderWindow m_window;
     sf::Clock m_clock;
     std::vector<GameState*> m_states;
