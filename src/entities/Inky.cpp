@@ -6,3 +6,11 @@ Point goal;
     goal.y = 2*pacmanPos.y - blinkyPos.y;
     return goal;
 }
+
+Point Inky::GetInkyStartPoint() const{
+    return spawnPoint;
+}
+
+Point Inky::GetInkyPoint() const {
+    return m_position;
+}

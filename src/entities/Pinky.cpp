@@ -1,5 +1,6 @@
 #include "Pinky.h"
 
+
 Point Pinky::chase(const Point &pacmanPos, const Point &blinkyPos) {
     for (int i=4;i>=-4;i--) {
         for (int j=4;j>=-4;j--) {
@@ -9,4 +10,12 @@ Point Pinky::chase(const Point &pacmanPos, const Point &blinkyPos) {
         }
     }
     return pacmanPos;
+}
+
+Point Pinky::GetPinkyPoint() const {
+    return m_position;
+}
+
+Point Pinky::GetPinkyStartPoint() const {
+    return spawnPoint;
 }
