@@ -6,10 +6,9 @@
 #include "../map/MapManager.h"
 
 class Ghost: public Character {
-protected:
+public:
     virtual Point chase(const Point& pacmanPos, const Point& blinkyPos,Direction pacmanDir) = 0;//重写寻路逻辑
     State state;
-public:
     Point spawnPoint;//出生点
     int scarytime;//恐惧时间长度
     bool isAlive;//是否存活
