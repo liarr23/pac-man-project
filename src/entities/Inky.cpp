@@ -1,10 +1,15 @@
 #include "Inky.h"
 
 Point Inky::chase(const Point &pacmanPos, const Point &blinkyPos,Direction pacmanDir) {
-Point goal;
-    goal.x = 2*pacmanPos.x - blinkyPos.x;
-    goal.y = 2*pacmanPos.y - blinkyPos.y;
-    return goal;
+    Point ahead = pacmanPos;
+    switch (pacmanDir) {
+        case Direction::Up:    ahead.y -= 2; break;
+        case Direction::Down:  ahead.y += 2; break;
+        case Direction::Left:  ahead.x -= 2; break;
+        case Direction::Right: ahead.x += 2; break;
+        default: break;
+    }
+    return Point(2 * ahead.x - blinkyPos.x, 2 * ahead.y - blinkyPos.y);
 }
 
 Point Inky::GetInkyStartPoint() const{

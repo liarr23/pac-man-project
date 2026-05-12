@@ -9,6 +9,9 @@ private:
 public:
     Item() = default;
     ~Item() = default;
+    void update(float deltaTime) override;
+    void render(sf::RenderWindow& window) override;
+    sf::FloatRect getBounds() const override;
     virtual ItemType onCollect() = 0;
     virtual int getScore() const = 0;
 };

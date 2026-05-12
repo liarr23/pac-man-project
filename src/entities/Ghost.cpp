@@ -20,6 +20,13 @@ void Ghost::eaten() {
     state = State::Eaten;
     isAlive = false;
 }
+sf::FloatRect Ghost::getBounds() const {
+    return sf::FloatRect(
+        m_position.x * 32.0f, m_position.y * 32.0f,
+        32.0f, 32.0f
+    );
+}
+
 Point Ghost::getPosition() {
     return m_position;
 }
@@ -46,9 +53,9 @@ void Ghost::reset() {
     statetime = 0;
 }
 
-Direction Ghost::getDirection(const Point& pacmanPos, const Point& blinkyPos) {
+Direction Ghost::getDirection(const Point& pacmanPos, const Point& blinkyPos, Direction pacmanDir) {
     Point current = this->m_position;
-    Point target = chase(pacmanPos, blinkyPos);
+    Point target = chase(pacmanPos, blinkyPos, pacmanDir);
     Direction currentDir = this->dir;
     Direction best = Direction::None;
     int bestDist = 999999;

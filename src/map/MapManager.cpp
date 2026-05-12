@@ -31,7 +31,7 @@ bool MapManager::LoadFromFile(const string &fileName) {
 
             }
             else if (val=='G') {
-                GhostStartPos=Point(col,row);
+                GhostPos=Point(col,row);
             }
             else if (val=='E') {
                 GhostDoor=Point(col,row);
