@@ -26,15 +26,24 @@ bool MapManager::LoadFromFile(const string &fileName) {
                 return false;
             }
                 world.insert({Point(col,row),val});
-            if (val=='P') {
+            if (val=='M') {
                 PacmanStartPos=Point(col,row);
 
             }
-            else if (val=='G') {
-                GhostPos=Point(col,row);
+            else if (val=='C') {
+                ClydeStartPos=Point(col,row);
             }
             else if (val=='E') {
                 GhostDoor=Point(col,row);
+            }
+            else if (val=='B') {
+                BlinkyStartPos=Point(col,row);
+            }
+            else if (val=='I') {
+                InkyStartPos=Point(col,row);
+            }
+            else if (val=='P') {
+                PinkyStartPos=Point(col,row);
             }
         }
     }
@@ -51,10 +60,19 @@ else {
     return true;
 }}
 Point MapManager::getPacmanStartPos() const {
-    return PacmanPos;
+    return PacmanStartPos;
 }
-Point MapManager::getGhostStartPos() const {
-    return GhostPos;
+Point MapManager::getBlinkyStartPos() const {
+    return BlinkyStartPos;
+}
+Point MapManager::getClydeStartPos() const {
+    return ClydeStartPos;
+}
+Point MapManager::getInkyStartPos() const {
+    return InkyStartPos;
+}
+Point MapManager::getPinkyStartPos() const {
+    return PinkyStartPos;
 }
 bool MapManager::isWalkable(int x,int y) const {
     if (x<0||x>width-1||y<0||y>height-1) return false;
@@ -78,19 +96,4 @@ int MapManager::getWidth() const {
 }
 int MapManager::getHeight() const {
     return height;
-}
-Point MapManager::getBlinkyStartPos() {
-    return BlinkyStartPos;
-}
-
-Point MapManager::getClydeStartPos() {
-    return ClydeStartPos;
-}
-
-Point MapManager::getInkyStartPos() {
-    return InkyStartPos;
-}
-
-Point MapManager::getPinkyStartPos() {
-    return PinkyStartPos;
 }

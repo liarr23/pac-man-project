@@ -9,8 +9,6 @@ using namespace std;
 class MapManager {
 public:
     int width, height;
-    Point PacmanPos;
-    Point GhostPos;
     Point ClydeStartPos;
     Point BlinkyStartPos;
     Point PinkyStartPos;
@@ -20,12 +18,11 @@ public:
     map<Point,char> world;
     map<Point,bool>walkable;
     bool isWalkable(const Point &p) const;
-    Point getBlinkyStartPos();
-    Point getPinkyStartPos();
-    Point getInkyStartPos();
-    Point getClydeStartPos();
+    Point getBlinkyStartPos()const;
+    Point getPinkyStartPos()const;
+    Point getInkyStartPos()const;
+    Point getClydeStartPos()const;
     Point getPacmanStartPos() const;
-    Point getGhostStartPos() const;
     bool isWalkable(int x, int y) const;
 
     MapManager(int width, int height);

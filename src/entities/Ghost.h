@@ -5,21 +5,30 @@
 #include "../core/Types.h"
 #include "../map/MapManager.h"
 
+class Pacman;
+
 class Ghost: public Character {
 public:
-    virtual Point chase(const Point& pacmanPos, const Point& blinkyPos,Direction pacmanDir) = 0;//重写寻路逻辑
+    virtual Point chase(const Point& pacmanPos, const Point& blinkyPos,Direction pacmanDir) = 0;
     State state;
-    Point spawnPoint;//出生点
-    int scarytime;//恐惧时间长度
-    bool isAlive;//是否存活
-    double statetime;//处在某一状态的时间
+    Point spawnPoint;
+    double scarytime;
+    bool isAlive;
+    double statetime;
     virtual void update(float deltaTime) override;
     void render(sf::RenderWindow& window) override;
     sf::FloatRect getBounds() const override;
     void setFrightened();
     void eaten();
-    Point getPosition();
+    void setPacman(const Pacman* p) { m_pacman = p; }
+    void setBlinky(const Ghost* b) { m_blinky = b; }
+    Point getPosition() const;
+    static constexpr double FRIGHTENED_DURATION = 6.0;
     Ghost (int x,int y,double speed,Direction dir,MapManager* map);
     void reset();
     Direction getDirection(const Point& pacmanPos, const Point& blinkyPos, Direction pacmanDir);
+private:
+    const Pacman* m_pacman = nullptr;
+    const Ghost* m_blinky = nullptr;
+    double moveCooldown = 0.0;
 };
