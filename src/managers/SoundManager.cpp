@@ -7,25 +7,25 @@ SoundManager::SoundManager() {
         m_backgroundMusic.setLoop(true);
         m_backgroundMusic.setVolume(30.f);
     }
-    if (m_eatDotBuffer.loadFromFile("assets/sounds/eat_dot.wav")) {
+    if (m_eatDotBuffer.loadFromFile("assets/sounds/eat1.ogg")) {
         m_eatDotSound.setBuffer(m_eatDotBuffer);
     }
-    if (m_eatPowerPelletBuffer.loadFromFile("assets/sounds/eat_power_pellet.wav")) {
+    if (m_eatPowerPelletBuffer.loadFromFile("assets/sounds/eat1.ogg")) {
         m_eatPowerPelletSound.setBuffer(m_eatPowerPelletBuffer);
     }
-    if (m_eatGhostBuffer.loadFromFile("assets/sounds/eat_ghost.wav")) {
+    if (m_eatGhostBuffer.loadFromFile("assets/sounds/burp.ogg")) {
         m_eatGhostSound.setBuffer(m_eatGhostBuffer);
     }
-    if (m_deathBuffer.loadFromFile("assets/sounds/death.wav")) {
+    if (m_deathBuffer.loadFromFile("assets/sounds/hit2.ogg")) {
         m_deathSound.setBuffer(m_deathBuffer);
     }
-    if (m_hurtBuffer.loadFromFile("assets/sounds/hurt.wav")) {
+    if (m_hurtBuffer.loadFromFile("assets/sounds/hurt.ogg")) {
         m_hurtSound.setBuffer(m_hurtBuffer);
     }
-    if (m_gameOverBuffer.loadFromFile("assets/sounds/game_over.wav")) {
+    if (m_gameOverBuffer.loadFromFile("assets/sounds/game_over.ogg")) {
         m_gameOverSound.setBuffer(m_gameOverBuffer);
     }
-    if (m_victoryBuffer.loadFromFile("assets/sounds/victory.wav")) {
+    if (m_victoryBuffer.loadFromFile("assets/sounds/victory.ogg")) {
         m_victorySound.setBuffer(m_victoryBuffer);
     }
 }
