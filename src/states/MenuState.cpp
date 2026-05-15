@@ -27,14 +27,19 @@ void MenuState::render(sf::RenderWindow& window)
     }
     sf::Text titleText("Pacman Game", font, 70);
     titleText.setFillColor(sf::Color::Yellow);
-    titleText.setPosition(200, 100);
+    auto titleBounds = titleText.getLocalBounds();
+    titleText.setPosition((800 - titleBounds.width) / 2, 150);
     window.draw(titleText);
-    sf::Text highScoreText("High Score: " + std::to_string(highScore), font, 50);
+
+    sf::Text highScoreText("High Score: " + std::to_string(highScore), font, 40);
     highScoreText.setFillColor(sf::Color::Green);
-    highScoreText.setPosition(200, 200);
+    auto hsBounds = highScoreText.getLocalBounds();
+    highScoreText.setPosition((800 - hsBounds.width) / 2, 300);
     window.draw(highScoreText);
-    sf::Text instructionText("Press Enter to Start\nPress Escape to Quit", font, 40);
+
+    sf::Text instructionText("Press Enter to Start\nPress Escape to Quit", font, 30);
     instructionText.setFillColor(sf::Color::White);
-    instructionText.setPosition(200, 300);
+    auto instBounds = instructionText.getLocalBounds();
+    instructionText.setPosition((800 - instBounds.width) / 2, 450);
     window.draw(instructionText);
 }

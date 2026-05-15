@@ -21,13 +21,20 @@ using namespace std;
 PlayingState::PlayingState() 
 {
     m_map = new MapManager(Config::MAP_WIDTH, Config::MAP_HEIGHT);
+    m_map->LoadFromFile("assets/maps/map1.txt");
     m_pacman = new Pacman(m_map->getPacmanStartPos().x,m_map->getPacmanStartPos().y,Config::INITIAL_LIVES,Config::PACMAN_SPEED,Direction::None,m_map);
     m_uiManager = new UIManager();
     m_scoreManager = new ScoreManager();
+    m_soundManager = new SoundManager();
+    m_soundManager->playBackgroundMusic();
     m_ghosts.push_back(new Blinky(m_map->getBlinkyStartPos().x,m_map->getBlinkyStartPos().y,Config::GHOST_SPEED,Direction::None,m_map));
     m_ghosts.push_back(new Pinky(m_map->getPinkyStartPos().x,m_map->getPinkyStartPos().y,Config::GHOST_SPEED,Direction::None,m_map));
     m_ghosts.push_back(new Inky(m_map->getInkyStartPos().x,m_map->getInkyStartPos().y,Config::GHOST_SPEED,Direction::None,m_map));
     m_ghosts.push_back(new Clyde(m_map->getClydeStartPos().x,m_map->getClydeStartPos().y,Config::GHOST_SPEED,Direction::None,m_map));
+    for (auto ghost : m_ghosts) {
+        ghost->setPacman(m_pacman);
+        ghost->setBlinky(m_ghosts[0]);
+    }
     for(int i = 0; i < m_map->getWidth(); i++) {
         for(int j = 0; j < m_map->getHeight(); j++) {
             char tile = m_map->getWord(i, j);
@@ -61,6 +68,7 @@ PlayingState::~PlayingState()
     delete m_map;
     delete m_uiManager;
     delete m_scoreManager;
+    delete m_soundManager;
 }
 
 
@@ -82,6 +90,7 @@ void PlayingState::handleInput(GameEngine& engine, sf::Event& event)
                 m_pacman->setDirection(Direction::Right); break;
             case sf::Keyboard::P:
             case sf::Keyboard::Escape:
+                m_soundManager->stopBackgroundMusic();
                 engine.pushState(new PausedState()); break;
             default: break;
         }
@@ -103,9 +112,13 @@ void PlayingState::update(GameEngine& engine, float deltaTime)
             m_scoreManager->addScore(item->getScore());
 
             if (type == ItemType::PowerPellet) {
+                m_soundManager->playEatPowerPellet();
                 for (auto ghost : m_ghosts) {
                     ghost->setFrightened();
                 }
+            }
+            if (type == ItemType::Dot) {
+                m_soundManager->playEatDot();
             }
             delete item;
             it = m_items.erase(it);
@@ -122,9 +135,13 @@ void PlayingState::update(GameEngine& engine, float deltaTime)
         if (ghost->state == State::Frightened) {
             ghost->eaten();
             m_scoreManager->addScore(200);
+            m_soundManager->playEatGhost();
         } else if (ghost->state != State::Eaten) {
+            m_soundManager->playHurt();
             m_pacman->die();
             if (m_pacman->lives <= 0) {
+                m_soundManager->stopBackgroundMusic();
+                m_soundManager->playGameOver();
                 engine.changeState(new GameOverState(false, m_scoreManager->getScore()));
                 return;
             }
@@ -143,8 +160,11 @@ void PlayingState::update(GameEngine& engine, float deltaTime)
         }
     }
     if (allEaten) {
+        m_soundManager->stopBackgroundMusic();
+        m_soundManager->playVictory();
         engine.changeState(new GameOverState(true, m_scoreManager->getScore()));
     }
+    m_uiManager->update(m_scoreManager->getScore(), m_scoreManager->getHighScore(), m_pacman->lives);
 }
  
 void PlayingState::render(sf::RenderWindow& window) 

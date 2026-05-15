@@ -5,7 +5,11 @@ UIManager::UIManager(int score, int highScore, int lives): m_score(score), m_hig
 
 UIManager::~UIManager() {
 }
-
+void UIManager::update(int score, int highScore, int lives) {
+    m_score = score;
+    m_highScore = highScore;
+    m_lives = lives;
+}
 void UIManager::render(sf::RenderWindow& window) 
 {
     sf::Font font;

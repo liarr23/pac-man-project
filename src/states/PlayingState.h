@@ -6,6 +6,7 @@
 #include "../entities/Ghost.h"
 #include "../ui/UIManager.h"
 #include "../managers/ScoreManager.h"
+#include "../managers/SoundManager.h"
 #include "../items/Item.h"
 #include "../map/Wall.h"
 
@@ -25,5 +26,6 @@ private:
     MapManager* m_map;
     UIManager* m_uiManager;
     ScoreManager* m_scoreManager;
+    SoundManager* m_soundManager;
     Point revivePoint; 
 };

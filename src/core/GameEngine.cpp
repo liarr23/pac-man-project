@@ -4,8 +4,10 @@
 GameEngine::GameEngine()
     : m_window(sf::VideoMode(800, 800), "Pacman Game", sf::Style::Resize | sf::Style::Close) {
     m_window.setFramerateLimit(60);
-    m_texture.loadFromFile("assets/textures/pacman.jpg");
+    m_texture.loadFromFile("assets/textures/taffy.jpg");
     m_sprite.setTexture(m_texture);
+    sf::Vector2u texSize = m_texture.getSize();
+    m_sprite.setScale(800.f / texSize.x,800.f / texSize.y);
 }
 
 GameEngine::~GameEngine() {

@@ -53,7 +53,7 @@ file.close();
 bool MapManager::isWalkable(const Point& p) const {
 if (p.x<0||p.x>width-1||p.y<0||p.y>height-1) return false;
 char val=world.at(Point(p.x,p.y));
-if (val=='W') {
+if (val=='#') {
     return false;
 }
 else {
@@ -77,7 +77,7 @@ Point MapManager::getPinkyStartPos() const {
 bool MapManager::isWalkable(int x,int y) const {
     if (x<0||x>width-1||y<0||y>height-1) return false;
     char val=world.at(Point(x,y));
-    if (val=='W') {
+    if (val=='#') {
         return false;
     }
     else {
