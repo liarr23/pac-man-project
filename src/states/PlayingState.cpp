@@ -21,10 +21,11 @@ using namespace std;
 PlayingState::PlayingState() 
 {
     m_map = new MapManager(Config::MAP_WIDTH, Config::MAP_HEIGHT);
-    m_map->LoadFromFile("assets/maps/map1.txt");
+    m_map->LoadFromFile("assets/maps/map2.txt");
     m_pacman = new Pacman(m_map->getPacmanStartPos().x,m_map->getPacmanStartPos().y,Config::INITIAL_LIVES,Config::PACMAN_SPEED,Direction::None,m_map);
     m_uiManager = new UIManager();
     m_scoreManager = new ScoreManager();
+    m_scoreManager->loadHighScore("highscore.txt");
     m_soundManager = new SoundManager();
     m_soundManager->playBackgroundMusic();
     m_ghosts.push_back(new Blinky(m_map->getBlinkyStartPos().x,m_map->getBlinkyStartPos().y,Config::GHOST_SPEED,Direction::None,m_map));
@@ -103,7 +104,9 @@ void PlayingState::update(GameEngine& engine, float deltaTime)
     for (auto ghost : m_ghosts) {
         ghost->update(deltaTime);
     }
-
+    if(!m_soundManager->isBackgroundMusicPlaying()) {
+        m_soundManager->playBackgroundMusic();
+    }
     // Pacman vs Items
     for (auto it = m_items.begin(); it != m_items.end();) {
         Item* item = *it;
@@ -142,6 +145,7 @@ void PlayingState::update(GameEngine& engine, float deltaTime)
             if (m_pacman->lives <= 0) {
                 m_soundManager->stopBackgroundMusic();
                 m_soundManager->playGameOver();
+                m_scoreManager->saveHighScore("highscore.txt");
                 engine.changeState(new GameOverState(false, m_scoreManager->getScore()));
                 return;
             }
@@ -151,20 +155,30 @@ void PlayingState::update(GameEngine& engine, float deltaTime)
         }
     }
 
-    // Win check: all dots and pellets eaten
-    bool allEaten = true;
+    // Count remaining dots
+    int dotsRemaining = 0;
     for (auto item : m_items) {
         if (item->onCollect() == ItemType::Dot || item->onCollect() == ItemType::PowerPellet) {
-            allEaten = false;
-            break;
+            dotsRemaining++;
         }
     }
-    if (allEaten) {
+    if (dotsRemaining == 0) {
         m_soundManager->stopBackgroundMusic();
         m_soundManager->playVictory();
+        m_scoreManager->saveHighScore("highscore.txt");
         engine.changeState(new GameOverState(true, m_scoreManager->getScore()));
+        return;
     }
-    m_uiManager->update(m_scoreManager->getScore(), m_scoreManager->getHighScore(), m_pacman->lives);
+    // Power pellet timer
+    float powerTimeRatio = 0.f;
+    for (auto ghost : m_ghosts) {
+        if (ghost->state == State::Frightened) {
+            float remaining = static_cast<float>(Ghost::FRIGHTENED_DURATION - ghost->scarytime);
+            float ratio = remaining / static_cast<float>(Ghost::FRIGHTENED_DURATION);
+            if (ratio > powerTimeRatio) powerTimeRatio = ratio;
+        }
+    }
+    m_uiManager->update(m_scoreManager->getScore(), m_scoreManager->getHighScore(), m_pacman->lives, dotsRemaining, powerTimeRatio);
 }
  
 void PlayingState::render(sf::RenderWindow& window) 

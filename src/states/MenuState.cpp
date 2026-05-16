@@ -1,8 +1,13 @@
 #include "MenuState.h"
 #include "../core/GameEngine.h"
 #include "PlayingState.h"
+#include <fstream>
 MenuState::MenuState(int highScore): highScore(highScore)
 {
+    std::ifstream file("highscore.txt");
+    if (file.is_open()) {
+        file >> this->highScore;
+    }
 }
 void MenuState::handleInput(GameEngine& engine, sf::Event& event)
 {

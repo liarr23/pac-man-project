@@ -99,3 +99,7 @@ void SoundManager::setSoundVolume(float volume) {
     m_gameOverSound.setVolume(volume);
     m_victorySound.setVolume(volume);
 }
+
+bool SoundManager::isBackgroundMusicPlaying() const {
+    return m_musicLoaded && m_backgroundMusic.getStatus() == sf::Music::Playing;
+}

@@ -43,8 +43,8 @@ namespace Config {//游戏配置常量
     constexpr int TILE_SIZE = 32;
     constexpr int MAP_WIDTH = 28;
     constexpr int MAP_HEIGHT = 31;
-    constexpr float PACMAN_SPEED = 10.f;
-    constexpr float GHOST_SPEED = 8.f;
+    constexpr float PACMAN_SPEED = 7.f;
+    constexpr float GHOST_SPEED = 1.f;
     constexpr int INITIAL_LIVES = 3;
     const std::string HIGHSCORE_PATH = "save/highscore.txt";
 }

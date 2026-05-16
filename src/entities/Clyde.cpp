@@ -4,6 +4,7 @@
 #include <cmath>
 
 void Clyde::update(float deltaTime) {
+    Ghost::update(deltaTime);
     m_targetTimer -= deltaTime;
     if (m_targetTimer <= 0) {
         m_randomTarget = Point(std::rand() % 28, std::rand() % 31);

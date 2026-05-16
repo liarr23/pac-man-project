@@ -3,6 +3,7 @@
 void PausedState::handleInput(GameEngine& engine, sf::Event& event)
 {
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P) {
+
         engine.popState(); // Return to PlayingState
     }
     if ((event.type == sf::Event::Closed)||(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))

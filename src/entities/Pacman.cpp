@@ -1,5 +1,6 @@
 #include "Pacman.h"
 #include "../map/MapManager.h"
+#include <cmath>
 
 Pacman::Pacman() {
 }
@@ -66,34 +67,48 @@ void Pacman::update(float deltaTime) {
 
 void Pacman::render(sf::RenderWindow& window) {
     static constexpr float TILE_SIZE = 32.0f;
-    static constexpr float RADIUS = 13.0f;
+    static constexpr float RADIUS = 14.0f;
+    static constexpr int SEGMENTS = 30;
 
     float px = m_position.x * TILE_SIZE + TILE_SIZE / 2.0f;
     float py = m_position.y * TILE_SIZE + TILE_SIZE / 2.0f;
 
-    sf::CircleShape body(RADIUS);
-    body.setFillColor(sf::Color::Yellow);
-    body.setOrigin(RADIUS, RADIUS);
-    body.setPosition(px, py);
-    window.draw(body);
-    bool open = (static_cast<int>(animTimer * 20) % 2 == 0);
-    if (open && dir != Direction::None) {
-        float mx = px, my = py;
-        float offset = RADIUS * 0.6f;
-        switch (dir) {
-            case Direction::Up:    my -= offset; break;
-            case Direction::Down:  my += offset; break;
-            case Direction::Left:  mx -= offset; break;
-            case Direction::Right: mx += offset; break;
-            default: break;
-        }
-        float mr = RADIUS * 0.5f;
-        sf::CircleShape mouth(mr);
-        mouth.setFillColor(sf::Color::Black);
-        mouth.setOrigin(mr, mr);
-        mouth.setPosition(mx, my);
-        window.draw(mouth);
+    // Mouth angle: oscillates between 0 (closed) and ~45 degrees (open)
+    float mouthAngle = 0.0f;
+    if (dir != Direction::None) {
+        mouthAngle = std::abs(std::sin(animTimer * 10.0f)) * 45.0f;
     }
+
+    // Build Pac-Man as a convex shape (circle with wedge cut out)
+    float startAngle = mouthAngle * 0.5f * 3.14159265f / 180.0f;
+    float endAngle = (360.0f - mouthAngle * 0.5f) * 3.14159265f / 180.0f;
+
+    sf::ConvexShape shape;
+    shape.setPointCount(SEGMENTS + 2);
+    shape.setPoint(0, sf::Vector2f(0.f, 0.f)); // center
+
+    for (int i = 0; i <= SEGMENTS; i++) {
+        float angle = startAngle + (endAngle - startAngle) * i / SEGMENTS;
+        shape.setPoint(i + 1, sf::Vector2f(
+            std::cos(angle) * RADIUS,
+            std::sin(angle) * RADIUS
+        ));
+    }
+
+    shape.setFillColor(sf::Color::Yellow);
+    shape.setOrigin(0.f, 0.f);
+    shape.setPosition(px, py);
+
+    // Rotate based on direction
+    switch (dir) {
+        case Direction::Right: shape.setRotation(0.f); break;
+        case Direction::Down:  shape.setRotation(90.f); break;
+        case Direction::Left:  shape.setRotation(180.f); break;
+        case Direction::Up:    shape.setRotation(270.f); break;
+        default:               shape.setRotation(0.f); break;
+    }
+
+    window.draw(shape);
 }
 
 sf::FloatRect Pacman::getBounds() const {

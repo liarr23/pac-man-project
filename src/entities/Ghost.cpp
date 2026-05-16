@@ -8,6 +8,35 @@
 void Ghost::update(float deltaTime) {
     if (!m_active) return;
     statetime += deltaTime;
+
+    // Eaten ghost: move back to ghost house, then respawn
+    if (state == State::Eaten) {
+        moveCooldown -= deltaTime * speed * 3.0; // faster when returning
+        if (moveCooldown > 0.0) return;
+        moveCooldown = 1.0;
+
+        // Navigate towards spawnPoint
+        int dx = spawnPoint.x - m_position.x;
+        int dy = spawnPoint.y - m_position.y;
+        if (dx == 0 && dy == 0) {
+            // Reached ghost house, respawn
+            state = State::Chase;
+            isAlive = true;
+            scarytime = 0;
+            statetime = 0;
+            return;
+        }
+        // Move one step towards spawn
+        Point next = m_position;
+        if (std::abs(dx) >= std::abs(dy)) {
+            next.x += (dx > 0) ? 1 : -1;
+        } else {
+            next.y += (dy > 0) ? 1 : -1;
+        }
+        m_position = next;
+        return;
+    }
+
     if (state == State::Frightened) {
         scarytime += deltaTime;
         if (scarytime >= FRIGHTENED_DURATION) {
@@ -174,6 +203,7 @@ void Ghost::render(sf::RenderWindow& window)
 }
 
 void Ghost::setFrightened() {
+    if (state == State::Eaten) return;
     state = State::Frightened;
     scarytime = 0;
 }

@@ -18,6 +18,7 @@ public:
     void playVictory();
     void setMusicVolume(float volume);
     void setSoundVolume(float volume);
+    bool isBackgroundMusicPlaying() const;
 
 private:
     sf::Music m_backgroundMusic;
